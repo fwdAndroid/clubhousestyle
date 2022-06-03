@@ -22,14 +22,13 @@ class _SignInState extends State<SignIn> {
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
-     final provider = Provider.of<GoogleSignInProvider>(context,listen: false);
+    final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xff060124),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           
             Container(
               child: const Center(
                   child: Text(
@@ -54,6 +53,7 @@ class _SignInState extends State<SignIn> {
               child: TextField(
                 autofocus: false,
                 style: TextStyle(fontSize: 15.0, color: Colors.white),
+                controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Enter Email Address',
                   labelStyle: TextStyle(color: Color(0xffF01454)),
@@ -80,6 +80,7 @@ class _SignInState extends State<SignIn> {
               child: TextField(
                 autofocus: false,
                 style: TextStyle(fontSize: 15.0, color: Colors.white),
+                controller: passController,
                 decoration: InputDecoration(
                   labelText: 'Enter Password',
                   labelStyle: TextStyle(color: Color(0xffF01454)),
@@ -120,10 +121,12 @@ class _SignInState extends State<SignIn> {
                           borderRadius: BorderRadius.circular(23)),
                     ),
                     onPressed: loginUser,
-                    child: _isLoading ? Center(child: CircularProgressIndicator()) : Text(
-                      'Sign In',
-                      style: TextStyle(fontSize: 20),
-                    ),
+                    child: _isLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : Text(
+                            'Sign In',
+                            style: TextStyle(fontSize: 20),
+                          ),
                   )),
             ),
             Container(
@@ -134,113 +137,97 @@ class _SignInState extends State<SignIn> {
               )),
             ),
             Center(
-                  child: Container(
-
-                   margin: EdgeInsets.only(top: 20),
-                    height: 60,
-                    width: 300,
-                    
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          // color: Colors.white,
-            ),
-      
-          
-                    child: SignInButton(
-                      
-                            Buttons.Google,
-                            text: "Sign up with Google",
-                            onPressed: (){
-                             
-                              try{
-                             Customdialog.showDialogBox(context);
-                            FirebaseDatabaseMethods().signInWithGoogle().then((value) {
-                               FirebaseDatabaseMethods().socialLoginUser(context);
-                             }).catchError((e){
-                             });
-                           }on FirebaseAuthException catch(e){
-                             Navigator.pop(context);
-          
-                             Customdialog.showBox(context,e.toString());
-          
-          
-                           }
-                             
-                            },
-                            shape: StadiumBorder(),
-                            ),
-                  ),
+              child: Container(
+                margin: EdgeInsets.only(top: 20),
+                height: 60,
+                width: 300,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  // color: Colors.white,
                 ),
-               Center(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 20),
-                   
-                    height: 60,
-                    width: 300,
-                    
-      
-      
-          
-                    child:  SignInButton(
-            Buttons.FacebookNew,
-            shape: StadiumBorder(),
-            onPressed: () {
-               Navigator.push(context,
-                         MaterialPageRoute(builder: (context) => MainScreen()));
-            },
-          ),
-                            
-                  ),
-                
+                child: SignInButton(
+                  Buttons.Google,
+                  text: "Sign up with Google",
+                  onPressed: () {
+                    try {
+                      Customdialog.showDialogBox(context);
+                      FirebaseDatabaseMethods()
+                          .signInWithGoogle()
+                          .then((value) {
+                        FirebaseDatabaseMethods().socialLoginUser(context);
+                      }).catchError((e) {});
+                    } on FirebaseAuthException catch (e) {
+                      Navigator.pop(context);
+
+                      Customdialog.showBox(context, e.toString());
+                    }
+                  },
+                  shape: StadiumBorder(),
+                ),
               ),
-              InkWell(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (builder) => SignUp()));
+            ),
+            Center(
+              child: Container(
+                margin: EdgeInsets.only(top: 20),
+                height: 60,
+                width: 300,
+                child: SignInButton(
+                  Buttons.FacebookNew,
+                  shape: StadiumBorder(),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MainScreen()));
+                  },
+                ),
+              ),
+            ),
+            InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (builder) => SignUp()));
                 },
                 child: Container(
-                  margin: EdgeInsets.only(top: 20,bottom: 10),
+                  margin: EdgeInsets.only(top: 20, bottom: 10),
                   child: Center(
                     child: RichText(
-                text: TextSpan(
-                  children: const <TextSpan>[
-                    TextSpan(text: 'Dont have an account?', style: TextStyle(color: Colors.white)),
-                    TextSpan(text: '  Sign Up',style: TextStyle(color: Color(0xffF01454))),
-                  ],
-                ),
-              ),
+                      text: TextSpan(
+                        children: const <TextSpan>[
+                          TextSpan(
+                              text: 'Dont have an account?',
+                              style: TextStyle(color: Colors.white)),
+                          TextSpan(
+                              text: '  Sign Up',
+                              style: TextStyle(color: Color(0xffF01454))),
+                        ],
+                      ),
+                    ),
                   ),
                 ))
-                         
-              ],
-            
-          
+          ],
         ),
       ),
     );
   }
 
-  void loginUser() async{
+  void loginUser() async {
     setState(() {
       _isLoading = true;
     });
     String rse = await FirebaseDatabaseMethods().signIn(
-        email: emailController.text,
-        pass: passController.text,
-      );
+      email: emailController.text,
+      pass: passController.text,
+    );
 
     print(rse);
     setState(() {
       _isLoading = false;
     });
-    if(rse == 'sucess'){
-       MaterialPageRoute(
-          builder: (builder) => MainScreen(
-            ));
-    }
-    else{
+    if (rse == 'sucess') {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (builder) => MainScreen()),
+      );
+    } else {
       showSnakBar(rse, context);
     }
-     
   }
-  
 }
