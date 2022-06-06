@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:clubstyle_users/chatmodels/chatpage.dart';
 import 'package:clubstyle_users/main/chat.dart';
 import 'package:clubstyle_users/main/club_life.dart';
 import 'package:clubstyle_users/main/home_page.dart';
@@ -28,20 +29,18 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff060124),
-      
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,
       ),
       bottomNavigationBar: ClipRRect(
-         borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(25),
-        topRight: Radius.circular(25),
-       
-      ),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
         child: BottomAppBar(
           shape: CircularNotchedRectangle(),
-        
+
           notchMargin: 5, //
           color: Color(0xffF01454),
           child: Container(
@@ -62,14 +61,23 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                        currentTab == 0 ? Image.asset('assets/v.png',height: 30,width: 30,) : Image.asset('assets/v.png',height: 30,width: 30,)
+                      currentTab == 0
+                          ? Image.asset(
+                              'assets/v.png',
+                              height: 30,
+                              width: 30,
+                            )
+                          : Image.asset(
+                              'assets/v.png',
+                              height: 30,
+                              width: 30,
+                            )
                       // Icon(
                       //   Icons.home,
                       //   color: currentTab == 0
                       //       ? Color(0xff3f48cc)
                       //       : Color(0xff8d8282),
                       // ),
-                     
                     ],
                   ),
                 ),
@@ -86,8 +94,17 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                       currentTab == 1 ? Image.asset('assets/nightclub.png',height: 30,width: 30,) : Image.asset('assets/nightclub.png',height: 30,width: 30,)
-                      
+                      currentTab == 1
+                          ? Image.asset(
+                              'assets/nightclub.png',
+                              height: 30,
+                              width: 30,
+                            )
+                          : Image.asset(
+                              'assets/nightclub.png',
+                              height: 30,
+                              width: 30,
+                            )
                     ],
                   ),
                 ),
@@ -103,14 +120,23 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                        currentTab == 2 ? Image.asset('assets/message.png',height: 30,width: 30,) : Image.asset('assets/message.png',height: 30,width: 30,)
-                     
+                      currentTab == 2
+                          ? Image.asset(
+                              'assets/message.png',
+                              height: 30,
+                              width: 30,
+                            )
+                          : Image.asset(
+                              'assets/message.png',
+                              height: 30,
+                              width: 30,
+                            )
                     ],
                   ),
                 ),
-      
+
                 ///Create Orders
-                 MaterialButton(
+                MaterialButton(
                   minWidth: 40,
                   onPressed: () {
                     setState(() {
@@ -122,8 +148,17 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                        currentTab == 3 ? Image.asset('assets/person.png',height: 30,width: 30,) : Image.asset('assets/person.png',height: 30,width: 30,)
-                     
+                      currentTab == 3
+                          ? Image.asset(
+                              'assets/person.png',
+                              height: 30,
+                              width: 30,
+                            )
+                          : Image.asset(
+                              'assets/person.png',
+                              height: 30,
+                              width: 30,
+                            )
                     ],
                   ),
                 ),

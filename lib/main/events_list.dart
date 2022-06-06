@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:clubstyle_users/database/database.dart';
+import 'package:clubstyle_users/main/event_details.dart';
 import 'package:flutter/material.dart';
 
 class EventsList extends StatefulWidget {
@@ -53,13 +53,21 @@ class _EventsListState extends State<EventsList> {
                   ),
                   trailing: InkWell(
                     child: const Text(
-                      'Book Now',
+                      'View Details',
                       style: TextStyle(color: Colors.white),
                     ),
-                    onTap: () async {
-                      await FirebaseDatabaseMethods()
-                          .bookEvent(snap: snap, uid: snap['uid'].toString());
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => EventDetailsScreen(
+                            snap: snap,
+                          ),
+                        ),
+                      );
                     },
+                    // onTap: () async {
+                    //   await FirebaseDatabaseMethods()
+                    //       .bookEvent(snap: snap, uid: snap['uid'].toString());
                   ),
                 );
               }),
