@@ -21,6 +21,9 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff060124),
+      appBar: AppBar(
+        backgroundColor: const Color(0xff060124),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(

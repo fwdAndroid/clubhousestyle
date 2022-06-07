@@ -11,12 +11,12 @@ import '../utils/customdialog.dart';
 
 class ChatPage extends StatefulWidget {
   String receiverId;
-  String receiverimageLink;
+  // String receiverimageLink;
   String receiverName;
   ChatPage({
     Key? key,
     required this.receiverName,
-    required this.receiverimageLink,
+    // required this.receiverimageLink,
     required this.receiverId,
   }) : super(key: key);
   List<ChatMessage> messages = [
@@ -129,7 +129,7 @@ class _ChatPageState extends State<ChatPage> {
                     width: 2,
                   ),
                   CircleAvatar(
-                    backgroundImage: NetworkImage(widget.receiverimageLink),
+                    // backgroundImage: NetworkImage(widget.receiverimageLink),
                     maxRadius: 20,
                   ),
                   SizedBox(

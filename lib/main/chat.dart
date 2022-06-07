@@ -49,11 +49,11 @@ class _ChatState extends State<Chat> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(color: Color(0xfffee6c1)),
+              decoration: const BoxDecoration(color: Color(0xfffee6c1)),
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
-                      .collection("users")
-                      .where("id",
+                      .collection("clubowners")
+                      .where("uid",
                           isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
                       .snapshots(),
                   builder: (BuildContext context,
@@ -73,21 +73,24 @@ class _ChatState extends State<Chat> {
                                         this.context,
                                         MaterialPageRoute(
                                           builder: (builder) => ChatPage(
-                                            receiverName: ds.get("fullname"),
+                                            receiverName:
+                                                ds.get("fullname").toString(),
                                             receiverId: ds.id,
-                                            receiverimageLink:
-                                                ds.get("photoUrl"),
+                                            // receiverimageLink:
+                                            //     ds.get("photoUrl").toString(),
                                           ),
                                         ),
                                       );
                                       // Navigator.pushNamed(this.context, MaterialPageRoute(builder: (builder) => ChatPage()));
                                     },
                                     leading: CircleAvatar(
-                                        radius: 30,
-                                        backgroundImage:
-                                            NetworkImage(ds.get("photoUrl"))),
-                                    title: Text(ds.get("fullname")),
-                                    trailing: Text('2 hrs ago'),
+                                      radius: 30,
+                                      // backgroundImage: NetworkImage(
+                                      //   ds.get("photoUrl").toString(),
+                                      // ),
+                                    ),
+                                    title: Text(ds.get("fullname").toString()),
+                                    // trailing: Text('2 hrs ago'),
                                   ),
                                   Divider()
                                 ],
